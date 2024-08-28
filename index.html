@@ -98,7 +98,7 @@
 
             takePhotoBtn.addEventListener('click', function() {
                 // 模拟拍照过程
-                takePhotoBtn.textContent = '拍照中...';
+                takePhotoBtn.textContent = '识别中...';
                 takePhotoBtn.disabled = true;
                 takePhotoBtn.classList.add('bg-gray-400', 'cursor-not-allowed');
                 takePhotoBtn.classList.remove('bg-blue-500', 'hover:bg-blue-600');
@@ -109,7 +109,7 @@
                     cardSection.classList.remove('hidden');
                     overlay.style.display = 'block';
                     backgroundVideo.pause();
-                }, 500); // 缩短拍照等待时间到0.5秒
+                }, 3000); // 缩短拍照等待时间到0.5秒
             });
 
             withdrawBtn.addEventListener('click', function() {
