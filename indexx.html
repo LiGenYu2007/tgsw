@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>无摄像头权限</title>
+    <title>天工识物</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
         .background-message {
@@ -30,7 +30,7 @@
 
     <!-- Background Message -->
     <div class="background-message">
-        无法访问摄像头，请检查您的权限设置。
+        无法访问摄像头，请检查您的权限设置
     </div>
 
     <!-- Camera Section -->
@@ -49,13 +49,23 @@
             const permissionDeniedMessage = document.getElementById('permissionDeniedMessage');
 
             takePhotoBtn.addEventListener('click', function() {
+                // 修改按钮文本和禁用按钮
+                takePhotoBtn.textContent = '处理中...';
+                takePhotoBtn.disabled = true;
+                takePhotoBtn.classList.add('bg-gray-400', 'cursor-not-allowed');
+                takePhotoBtn.classList.remove('bg-blue-500', 'hover:bg-blue-600');
+
                 // 显示提示信息
                 permissionDeniedMessage.classList.remove('hidden');
                 
-                // 2秒后隐藏提示信息
+                // 2秒后恢复按钮状态和隐藏提示信息
                 setTimeout(() => {
+                    takePhotoBtn.textContent = '拍照';
+                    takePhotoBtn.disabled = false;
+                    takePhotoBtn.classList.remove('bg-gray-400', 'cursor-not-allowed');
+                    takePhotoBtn.classList.add('bg-blue-500', 'hover:bg-blue-600');
                     permissionDeniedMessage.classList.add('hidden');
-                }, 2000); // 提示信息显示2秒钟
+                }, 2000); // 提示信息和按钮状态显示2秒钟
             });
         });
     </script>
