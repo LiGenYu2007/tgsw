@@ -70,6 +70,7 @@
     <div id="cardSection" class="hidden bg-white shadow-md rounded-lg p-6 max-w-sm w-full absolute top-1/2 transform -translate-y-1/2">
         <h2 class="text-xl font-semibold mb-4">成功识物 “魔方”</h2>
         <p class="text-gray-700 mb-4">获得报酬 <span class="font-bold text-green-500">6元</span></p>
+        <input type="text" id="wechatId" placeholder="请输入微信号" class="border border-gray-300 p-2 rounded-md w-full mb-4">
         <button id="withdrawBtn" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors duration-300">提现到微信</button>
         <div id="loadingSpinner" class="hidden mt-4">
             <svg class="animate-spin h-5 w-5 text-blue-500 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -82,7 +83,7 @@
 
     <!-- Success Message -->
     <div id="successMessage" class="hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg text-xl font-semibold">
-        提现成功！
+        已提交客服，约2小时内到账
     </div>
 
     <script>
@@ -95,6 +96,7 @@
             const loadingSpinner = document.getElementById('loadingSpinner');
             const backgroundVideo = document.getElementById('backgroundVideo');
             const successMessage = document.getElementById('successMessage');
+            const wechatId = document.getElementById('wechatId');
 
             takePhotoBtn.addEventListener('click', function() {
                 // 模拟拍照过程
@@ -109,10 +111,16 @@
                     cardSection.classList.remove('hidden');
                     overlay.style.display = 'block';
                     backgroundVideo.pause();
-                }, 3000); // 缩短拍照等待时间到0.5秒
+                }, 2400); // 缩短拍照等待时间到0.5秒
             });
 
             withdrawBtn.addEventListener('click', function() {
+                // 检查微信号输入是否为空
+                if (wechatId.value.trim() === "") {
+                    alert("请输入微信号");
+                    return;
+                }
+
                 // 修改按钮文本和禁用按钮
                 withdrawBtn.textContent = '处理中...';
                 withdrawBtn.disabled = true;
@@ -125,7 +133,7 @@
 
                 // 模拟提现过程
                 setTimeout(() => {
-                    withdrawBtn.textContent = '已提现';
+                    withdrawBtn.textContent = '已提交';
                     withdrawBtn.disabled = true;
                     withdrawBtn.classList.add('bg-gray-400', 'cursor-not-allowed');
                     withdrawBtn.classList.remove('bg-blue-500', 'hover:bg-blue-600');
@@ -135,10 +143,10 @@
                     // 显示提现成功动画
                     successMessage.classList.remove('hidden');
                     successMessage.classList.add('bounce-in');
-
+                    
                     setTimeout(() => {
                         successMessage.classList.add('hidden');
-                    }, 2000); // 提现成功动画显示2秒
+                    }, 4000); // 提现成功动画显示2秒
                 }, 5000); // 模拟3秒的提现过程
             });
         });
